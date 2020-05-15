@@ -16,7 +16,11 @@ logger.critical("Critical");
 
 ## More complex example
 ```ts
-import { consoleSink, createLogger, LogLevel } from "https://denolib.com/yamboy1/deno-structured-logging/mod.ts";
+import {
+  consoleSink,
+  createLogger,
+  LogLevel,
+} from "https://denolib.com/yamboy1/deno-structured-logging/mod.ts";
 
 const logger = createLogger({
   minimumLevel: LogLevel.INFO,

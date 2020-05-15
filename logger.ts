@@ -3,18 +3,19 @@
 import { LogLevel } from "./levels.ts";
 import { Sink, consoleSink } from "./sinks.ts";
 
-
 /** Create a new Logger */
-export function createLogger({ minimumLevel, sinks }: Partial<LoggerOptions> = {}): Logger {
+export function createLogger(
+  { minimumLevel, sinks }: Partial<LoggerOptions> = {},
+): Logger {
   return new LoggerImpl({
     minimumLevel: minimumLevel ?? LogLevel.DEBUG,
     sinks: sinks ?? [consoleSink],
-  })
+  });
 }
 
 export interface LoggerOptions {
   minimumLevel: LogLevel;
-  sinks: Sink[]
+  sinks: Sink[];
 }
 
 export interface Logger {
