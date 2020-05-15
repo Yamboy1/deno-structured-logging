@@ -5,7 +5,7 @@ A better logger for deno, with support for structured logging.
 ## Simple Example
 ```ts
 import { createLogger } from "https://denolib.com/yamboy1/deno-structured-logging/mod.ts";
-const logger = createLogger());
+const logger = createLogger();
 
 logger.debug("Debug");
 logger.info("Info");
@@ -48,5 +48,3 @@ Available sinks:
 
 - Console (with colors)
 - ~~File~~ coming soon™
-
-(c) 2020 Yamboy1. All rights reserved. MIT license.
