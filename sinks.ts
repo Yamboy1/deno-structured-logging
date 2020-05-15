@@ -9,14 +9,14 @@ import {
 } from "https://deno.land/std/fmt/colors.ts";
 import { LogLevel } from "./levels.ts";
 
-/* An output for the logger, sometimes known as a handler */
+/** An output for the logger, sometimes known as a handler */
 export type Sink = (
   level: LogLevel,
   format: string,
   ...args: unknown[]
 ) => void;
 
-/* A console sink with colors */
+/** The default console sink */
 export const consoleSink: Sink = (
   level: LogLevel,
   format: string,
