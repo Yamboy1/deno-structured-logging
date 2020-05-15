@@ -19,4 +19,4 @@ Available sinks:
 - Console (with colors)
 - ~~File~~ coming soon™
 
-©️ 2020 Yamboy1. All rights reserved. MIT license.
+(c) 2020 Yamboy1. All rights reserved. MIT license.
