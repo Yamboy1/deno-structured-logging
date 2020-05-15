@@ -2,6 +2,32 @@
 
 A better logger for deno, with support for structured logging.
 
+## Simple Example
+```ts
+import { createLogger } from "https://denolib.com/yamboy1/deno-structured-logging/mod.ts";
+const logger = createLogger());
+
+logger.debug("Debug");
+logger.info("Info");
+logger.warning("Warning");
+logger.error("Error");
+logger.critical("Critical");
+```
+
+## More complex example
+```ts
+import { consoleSink, createLogger, LogLevel } from "https://denolib.com/yamboy1/deno-structured-logging/mod.ts";
+
+const logger = createLogger({
+  minimumLevel: LogLevel.INFO,
+  sinks: [consoleSink] // This is the default, but shown here for  completeness
+ });
+
+logger.debug("Debug"); // Ignored due to the minimumLevel
+logger.info("This is {type} logging in {program}", "Structured", "Deno");
+logger.warning("Numbers work: {number} as well as arrays: {arr}", 1, ["a","b","c"]);
+```
+
 ## String formatting
 
 DSL uses it's own form of string formatting, similar to Serilog in C#. The syntax for this is 
