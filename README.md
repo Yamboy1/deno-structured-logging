@@ -24,7 +24,7 @@ import {
 
 const logger = createLogger({
   minimumLevel: LogLevel.INFO,
-  sinks: [consoleSink] // This is the default, but shown here for  completeness
+  sinks: [consoleSink] // This is the default, but shown here for completeness
  });
 
 logger.debug("Debug"); // Ignored due to the minimumLevel
@@ -38,7 +38,7 @@ DSL uses it's own form of string formatting, similar to Serilog in C#. The synta
 ```ts
 logger.log("Hello {name}, this is another {variable}", "First", 2);
 ```
-where `"First"` and `2` are substituted into `{name}` and `{variable}` respectively. With the default console sink, the names don't really matter, however they help readability of the format, and with more complex sinks, for example a JSON sink, they could be used as property names.
+where `"First"` and `2` are substituted into `{name}` and `{variable}` respectively. With the default console sink, the names don't really matter however they help readability of the format and with more complex sinks, for example a JSON sink, they could be used as property names.
 
 ## Available sinks
 
