@@ -5,7 +5,7 @@ import { Sink, consoleSink } from "./sinks.ts";
 
 
 /** Create a new Logger */
-export function createLogger({ minimumLevel, sinks }: Partial<LoggerOptions> = {}) {
+export function createLogger({ minimumLevel, sinks }: Partial<LoggerOptions> = {}): Logger {
   return new LoggerImpl({
     minimumLevel: minimumLevel ?? LogLevel.DEBUG,
     sinks: sinks ?? [consoleSink],
