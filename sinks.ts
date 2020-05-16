@@ -6,7 +6,7 @@ import {
   white,
   red,
   bold,
-} from "https://deno.land/std/fmt/colors.ts";
+} from "https://deno.land/std@0.51.0/fmt/colors.ts";
 import { LogLevel } from "./levels.ts";
 
 /** An output for the logger, sometimes known as a handler */
