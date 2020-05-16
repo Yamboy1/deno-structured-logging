@@ -1,3 +1,5 @@
+// Copyright 2020 Yamboy1. All rights reserved. MIT license.
+
 import {
   consoleSink,
   createLogger,
