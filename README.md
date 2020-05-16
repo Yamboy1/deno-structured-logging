@@ -13,6 +13,7 @@ logger.warning("Warning");
 logger.error("Error");
 logger.critical("Critical");
 ```
+![Simple Example](./assets/simple.png)
 
 ## More complex example
 ```ts
@@ -31,6 +32,7 @@ logger.debug("Debug"); // Ignored due to the minimumLevel
 logger.info("This is {type} logging in {program}", "Structured", "Deno");
 logger.warning("Numbers work: {number} as well as arrays: {arr}", 1, ["a","b","c"]);
 ```
+![Complex Example](./assets/complex.png)
 
 ## String formatting
 
