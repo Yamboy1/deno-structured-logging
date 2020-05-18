@@ -8,9 +8,14 @@ import {
 
 const logger = createLogger({
   minimumLevel: LogLevel.INFO,
-  sinks: [consoleSink] // This is the default, but shown here for completeness
- });
+  sinks: [consoleSink], // This is the default, but shown here for completeness
+});
 
 logger.debug("Debug"); // Ignored due to the minimumLevel
 logger.info("This is {type} logging in {program}", "Structured", "Deno");
-logger.warning("Numbers work: {number} as well as arrays: {arr}", 1, ["a","b","c"]);
+
+// It doesn't matter what these variables are called,
+const num = 1;
+const array = ["a", "b", "c"];
+
+logger.warning("Numbers work: {number} as well as arrays: {arr}", num, array);
