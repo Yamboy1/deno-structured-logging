@@ -52,9 +52,11 @@ class LoggerImpl {
     const format = parseFormat(formatString, ...args);
 
     if (this.sinks.length === 0) {
-      console.error(
-        "[Deno Structured Logging] Warning: No sinks are provided.",
-      );
+      // TODO: revisit this idea
+
+      // console.error(
+      //   "[INTERNAL] Warning: No sinks are provided.",
+      // );
     }
 
     for (let sink of this.sinks) {
