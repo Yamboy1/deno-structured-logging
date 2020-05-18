@@ -1,14 +1,11 @@
 // Copyright 2020 Yamboy1. All rights reserved. MIT license.
 
-import {
-  consoleSink,
-  createLogger,
-  LogLevel,
-} from "../mod.ts";
+import { consoleSink, fileSink } from "../sinks/mod.ts"
+import { createLogger, LogLevel } from "../mod.ts";
 
 const logger = createLogger({
   minimumLevel: LogLevel.INFO,
-  sinks: [consoleSink], // This is the default, but shown here for completeness
+  sinks: [consoleSink(), fileSink("test.log")],
 });
 
 logger.debug("Debug"); // Ignored due to the minimumLevel

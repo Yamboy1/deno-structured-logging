@@ -2,4 +2,3 @@
 
 export { Logger, LoggerOptions, createLogger } from "./logger.ts";
 export { LogLevel } from "./levels.ts";
-export { Sink, consoleSink } from "./sinks.ts";

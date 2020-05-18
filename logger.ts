@@ -2,7 +2,7 @@
 
 import { parseFormat } from "./format.ts";
 import { LogLevel } from "./levels.ts";
-import { Sink, consoleSink } from "./sinks.ts";
+import { Sink, consoleSink } from "./sinks/mod.ts";
 
 /** Create a new Logger */
 export function createLogger(
@@ -10,7 +10,7 @@ export function createLogger(
 ): Logger {
   return new LoggerImpl({
     minimumLevel: minimumLevel ?? LogLevel.DEBUG,
-    sinks: sinks ?? [consoleSink],
+    sinks: sinks ?? [consoleSink()],
   });
 }
 
@@ -60,7 +60,7 @@ class LoggerImpl {
     }
 
     for (let sink of this.sinks) {
-      sink(level, format);
+      sink.run(level, format);
     }
   }
 
