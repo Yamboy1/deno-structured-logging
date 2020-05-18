@@ -18,4 +18,4 @@ logger.info("This is {type} logging in {program}", "Structured", "Deno");
 const num = 1;
 const array = ["a", "b", "c"];
 
-logger.warning("Numbers work: {number} as well as arrays: {arr}", num, array);
+logger.warn("Numbers work: {number} as well as arrays: {arr}", num, array);

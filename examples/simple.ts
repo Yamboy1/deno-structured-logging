@@ -6,6 +6,6 @@ const logger = createLogger();
 
 logger.debug("Debug");
 logger.info("Info");
-logger.warning("Warning");
+logger.warn("Warn");
 logger.error("Error");
 logger.critical("Critical");

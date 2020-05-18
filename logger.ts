@@ -27,7 +27,7 @@ export interface Logger {
 
   debug: LogFunction;
   info: LogFunction;
-  warning: LogFunction;
+  warn: LogFunction;
   error: LogFunction;
   critical: LogFunction;
 }
@@ -70,8 +70,8 @@ class LoggerImpl {
     this.log(LogLevel.INFO, format, ...args);
   }
 
-  warning(format: string, ...args: unknown[]): void {
-    this.log(LogLevel.WARNING, format, ...args);
+  warn(format: string, ...args: unknown[]): void {
+    this.log(LogLevel.WARN, format, ...args);
   }
 
   error(format: string, ...args: unknown[]): void {
