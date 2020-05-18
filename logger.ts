@@ -1,5 +1,6 @@
 // Copyright 2020 Yamboy1. All rights reserved. MIT license.
 
+import { parseFormat } from "./format.ts";
 import { LogLevel } from "./levels.ts";
 import { Sink, consoleSink } from "./sinks.ts";
 
@@ -13,6 +14,8 @@ export function createLogger(
   });
 }
 
+type LogFunction = (format: string, ...args: unknown[]) => void;
+
 export interface LoggerOptions {
   minimumLevel: LogLevel;
   sinks: Sink[];
@@ -22,11 +25,11 @@ export interface Logger {
   /** Add a sink at runtime, in most cases, the sinks parameter from createLogger should be used instead. */
   addSink(sink: Sink): this;
 
-  debug(format: string, ...args: unknown[]): void;
-  info(format: string, ...args: unknown[]): void;
-  warning(format: string, ...args: unknown[]): void;
-  error(format: string, ...args: unknown[]): void;
-  critical(format: string, ...args: unknown[]): void;
+  debug: LogFunction;
+  info: LogFunction;
+  warning: LogFunction;
+  error: LogFunction;
+  critical: LogFunction;
 }
 
 class LoggerImpl {
@@ -43,8 +46,10 @@ class LoggerImpl {
     return this;
   }
 
-  private log(level: LogLevel, format: string, ...args: unknown[]): void {
+  private log(level: LogLevel, formatString: string, ...args: unknown[]): void {
     if (level < this.minimumLevel) return;
+
+    const format = parseFormat(formatString, ...args);
 
     if (this.sinks.length === 0) {
       console.error(
@@ -53,7 +58,7 @@ class LoggerImpl {
     }
 
     for (let sink of this.sinks) {
-      sink(level, format, ...args);
+      sink(level, format);
     }
   }
 

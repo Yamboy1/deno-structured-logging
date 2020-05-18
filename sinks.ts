@@ -7,45 +7,31 @@ import {
   red,
   bold,
 } from "https://deno.land/std@0.51.0/fmt/colors.ts";
+import { Format } from "./format.ts";
 import { LogLevel } from "./levels.ts";
 
 /** An output for the logger, sometimes known as a handler */
 export type Sink = (
   level: LogLevel,
-  format: string,
-  ...args: unknown[]
+  format: Format,
 ) => void;
 
 /** The default console sink */
 export const consoleSink: Sink = (
   level: LogLevel,
-  format: string,
-  ...args: unknown[]
+  format: Format,
 ) => {
-  const message = format.replace(/\{.*?\}/g, () => `${args.shift()}` || "");
-  const timestamp = `[${new Date().toISOString()} ${LogLevel[level]}]`;
+  const message = `[${new Date().toISOString()} ${
+    LogLevel[level]
+  }] ${format.output}`;
 
-  let color;
-  switch (level) {
-    case LogLevel.DEBUG:
-      color = gray;
-      break;
-    case LogLevel.INFO:
-      color = white;
-      break;
-    case LogLevel.WARNING:
-      color = yellow;
-      break;
-    case LogLevel.ERROR:
-      color = red;
-      break;
-    case LogLevel.CRITICAL:
-      color = (str: string) => bold(red(str));
-      break;
-    default:
-      color = white;
-      break;
-  }
+  const color = ({
+    [LogLevel.DEBUG]: gray,
+    [LogLevel.INFO]: white,
+    [LogLevel.WARNING]: yellow,
+    [LogLevel.ERROR]: red,
+    [LogLevel.CRITICAL]: (str: string) => bold(red(str)),
+  })[level] ?? white;
 
-  console.log(color(`${timestamp} ${message}`));
+  console.log(color(message));
 };
