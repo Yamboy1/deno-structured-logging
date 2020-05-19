@@ -1,15 +1,16 @@
-# Deno Structured Logging
+# Deno Structured Logging (currently unstable)
 
 A better logger for deno, with support for structured logging.
 
 ## Simple Example
 ```ts
-import { createLogger } from "https://denolib.com/yamboy1/deno-structured-logging/mod.ts";
+import { createLogger } from "https://deno.land/x/deno_structured_logging/mod.ts";
+
 const logger = createLogger();
 
 logger.debug("Debug");
 logger.info("Info");
-logger.warning("Warning");
+logger.warn("Warn");
 logger.error("Error");
 logger.critical("Critical");
 ```
@@ -17,20 +18,23 @@ logger.critical("Critical");
 
 ## More complex example
 ```ts
-import {
-  consoleSink,
-  createLogger,
-  LogLevel,
-} from "https://denolib.com/yamboy1/deno-structured-logging/mod.ts";
+import { createLogger, LogLevel } from "https://deno.land/x/deno_structured_logging/mod.ts";
+import { consoleSink, fileSink } from "https://deno.land/x/deno_structured_logging/sinks/mod.ts"
 
 const logger = createLogger({
   minimumLevel: LogLevel.INFO,
-  sinks: [consoleSink] // This is the default, but shown here for completeness
- });
+  sinks: [consoleSink(), fileSink("test.log")],
+});
 
 logger.debug("Debug"); // Ignored due to the minimumLevel
 logger.info("This is {type} logging in {program}", "Structured", "Deno");
-logger.warning("Numbers work: {number} as well as arrays: {arr}", 1, ["a","b","c"]);
+
+// It doesn't matter what these variables are called,
+const num = 1;
+const array = ["a", "b", "c"];
+
+logger.warn("Numbers work: {number} as well as arrays: {arr}", num, array);
+
 ```
 ![Complex Example](./assets/complex.png)
 
@@ -48,5 +52,6 @@ A sink is an output for DSL. For example the console sink prints to the console,
 
 Available sinks:
 
-- Console (with colors)
-- ~~File~~ coming soon™
+- Console Sink (with colors)
+- File Sink
+- More coming soon
