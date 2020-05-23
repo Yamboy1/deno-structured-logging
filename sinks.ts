@@ -9,14 +9,19 @@ import {
 } from "https://deno.land/std@0.51.0/fmt/colors.ts";
 import { LogEntry, LogLevel, SinkFunction } from "./types.ts";
 
-type ColorFunction = (str: string) => string;
+/** A function that changes the color of a string in the terminal, generally from std/fmt/colors.ts */
+export type ColorFunction = (str: string) => string;
 
-interface ConsoleOptions {
+/** Options for the console sink */
+export interface ConsoleOptions {
+  /** Whether colors should be enabled*/
   enableColors: boolean;
+  /** Color overrides for the sink */
   colorOptions: Partial<ColorOptions>;
 }
 
-interface ColorOptions {
+/** Color overrides for the console sink */
+export interface ColorOptions {
   debug: ColorFunction;
   info: ColorFunction;
   warn: ColorFunction;
@@ -32,7 +37,7 @@ export function consoleSink({
     info = blue,
     warn = yellow,
     error = red,
-    critical = (str: string) => str
+    critical = (str: string) => bold(red(str))
   } = {}
 }: Partial<ConsoleOptions> = {}): SinkFunction {
   return ({ level, formattedMessage }: LogEntry) => {
