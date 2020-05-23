@@ -12,12 +12,12 @@ import {
 
 const logger = createLogger({
   minimumLevel: LogLevel.INFO,
-  outputFormat: textFormat, // A custom output format
+  outputFormat: textFormat, // You can customise the default output format
 })
   .addSink(consoleSink({
     colorOptions: { info: green } // You can customise the log level colors
   }))
-  .addSink(fileSink("file.ndjson"), jsonFormat); // You can set a custom format per sink
+  .addSink(fileSink("log.ndjson"), jsonFormat); // You can set a custom format per sink
 
 logger.debug("Debug"); // Ignored due to the minimumLevel
 logger.info("This is {type} logging in {program}", "Structured", "Deno");
@@ -27,5 +27,3 @@ const num = 1;
 const array = ["a", "b", "c"];
 
 logger.warn("Numbers work: {number} as well as arrays: {arr}", num, array);
-
-logger.info("Object: {object}", () => {})

@@ -1,12 +1,17 @@
 # Deno Structured Logging (currently unstable)
 
+[![deno doc](https://doc.deno.land/badge.svg)](https://doc.deno.land/https/raw.githubusercontent.com/Yamboy1/deno-structured-logging/master/mod.ts)
+[![deno.land](https://img.shields.io/badge/deno.land-0.3.0-blue)](https://deno.land/x/deno_structured_logging@0.3.0)
+
 A better logger for deno, with support for structured logging.
 
 ## Simple Example
 ```ts
-import { createLogger } from "https://deno.land/x/deno_structured_logging/mod.ts";
+// Copyright 2020 Yamboy1. All rights reserved. MIT license.
 
-const logger = createLogger();
+import { createLogger, consoleSink } from "https://deno.land/x/deno_structured_logging/mod.ts";
+
+const logger = createLogger().addSink(consoleSink());
 
 logger.debug("Debug");
 logger.info("Info");
@@ -18,13 +23,24 @@ logger.critical("Critical");
 
 ## More complex example
 ```ts
-import { createLogger, LogLevel } from "https://deno.land/x/deno_structured_logging/mod.ts";
-import { consoleSink, fileSink } from "https://deno.land/x/deno_structured_logging/sinks/mod.ts"
+import { green } from "https://deno.land/std@0.51.0/fmt/colors.ts";
+import {
+  createLogger,
+  LogLevel,
+  consoleSink,
+  fileSink,
+  jsonFormat,
+  textFormat,
+} from "https://deno.lan/x/deno_structured_logging/mod.ts";
 
 const logger = createLogger({
   minimumLevel: LogLevel.INFO,
-  sinks: [consoleSink(), fileSink("test.log")],
-});
+  outputFormat: textFormat, // You can customise the default output format
+})
+  .addSink(consoleSink({
+    colorOptions: { info: green } // You can customise the log level colors
+  }))
+  .addSink(fileSink("log.ndjson"), jsonFormat); // You can set a custom format per sink
 
 logger.debug("Debug"); // Ignored due to the minimumLevel
 logger.info("This is {type} logging in {program}", "Structured", "Deno");
@@ -34,7 +50,6 @@ const num = 1;
 const array = ["a", "b", "c"];
 
 logger.warn("Numbers work: {number} as well as arrays: {arr}", num, array);
-
 ```
 ![Complex Example](./assets/complex.png)
 
@@ -44,7 +59,7 @@ DSL uses it's own form of string formatting, similar to Serilog in C#. The synta
 ```ts
 logger.info("Hello {name}, this is another {variable}", "First", 2);
 ```
-where `"First"` and `2` are substituted into `{name}` and `{variable}` respectively. With the default console sink, the names don't really matter however they help readability of the format and with more complex sinks, for example a JSON sink, they could be used as property names.
+where `"First"` and `2` are substituted into `{name}` and `{variable}` respectively. With the default console sink, the names don't really matter however they help readability of the format and with more complex formats, for example a JSON format, they could be used as property names.
 
 ## Available sinks
 
