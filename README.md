@@ -1,15 +1,13 @@
 # Deno Structured Logging (currently unstable)
 
 [![deno doc](https://doc.deno.land/badge.svg)](https://doc.deno.land/https/raw.githubusercontent.com/Yamboy1/deno-structured-logging/master/mod.ts)
-[![deno.land](https://img.shields.io/badge/deno.land-0.4.0-blue)](https://deno.land/x/deno_structured_logging@0.4.0)
+[![deno.land](https://img.shields.io/badge/deno.land-0.4.1-blue)](https://deno.land/x/deno_structured_logging@0.4.1)
 
 A better logger for deno, with support for structured logging.
 
 ## Simple Example
 ```ts
-// Copyright 2020 Yamboy1. All rights reserved. MIT license.
-
-import { createLogger, consoleSink } from "https://deno.land/x/deno_structured_logging@0.4.0/mod.ts";
+import { createLogger, consoleSink } from "https://deno.land/x/deno_structured_logging@0.4.1/mod.ts";
 
 const logger = createLogger().addSink(consoleSink());
 
@@ -31,7 +29,7 @@ import {
   fileSink,
   jsonFormat,
   textFormat,
-} from "https://deno.land/x/deno_structured_logging@0.4.0/mod.ts";
+} from "https://deno.land/x/deno_structured_logging@0.4.1/mod.ts";
 
 const logger = createLogger({
   minimumLevel: LogLevel.INFO,
