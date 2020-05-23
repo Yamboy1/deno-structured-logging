@@ -9,7 +9,7 @@ A better logger for deno, with support for structured logging.
 ```ts
 // Copyright 2020 Yamboy1. All rights reserved. MIT license.
 
-import { createLogger, consoleSink } from "https://deno.land/x/deno_structured_logging/mod.ts";
+import { createLogger, consoleSink } from "https://deno.land/x/deno_structured_logging@0.4.0/mod.ts";
 
 const logger = createLogger().addSink(consoleSink());
 
@@ -31,7 +31,7 @@ import {
   fileSink,
   jsonFormat,
   textFormat,
-} from "https://deno.lan/x/deno_structured_logging/mod.ts";
+} from "https://deno.lan/x/deno_structured_logging@0.4.0/mod.ts";
 
 const logger = createLogger({
   minimumLevel: LogLevel.INFO,
