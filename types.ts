@@ -1,5 +1,4 @@
 /** A sink is like an output, sometimes known as a handler */
-
 export type SinkFunction = (logEntry: LogEntry) => void;
 
 

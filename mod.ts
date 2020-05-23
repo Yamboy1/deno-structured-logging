@@ -1,9 +1,9 @@
 // Copyright 2020 Yamboy1. All rights reserved. MIT license.
 
-export { consoleSink, fileSink } from "./sinks.ts";
+export * from "./sinks.ts";
+export * from "./types.ts";
 
 import { LogEntry, LogLevel, SinkFunction } from "./types.ts";
-export { LogLevel };
 
 export interface LoggerOptions {
   /** Minimum log level, any logs under this level will be ignored. Defaults to LogLevel.INFO */
@@ -32,7 +32,7 @@ export function createLogger(
   });
 }
 
-type LogFunction = (format: string, ...args: unknown[]) => void;
+export type LogFunction = (format: string, ...args: unknown[]) => void;
 
 interface Sink {
   sinkFunc: SinkFunction;
