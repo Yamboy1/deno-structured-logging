@@ -1,7 +1,7 @@
 # Deno Structured Logging (currently unstable)
 
 [![deno doc](https://doc.deno.land/badge.svg)](https://doc.deno.land/https/raw.githubusercontent.com/Yamboy1/deno-structured-logging/master/mod.ts)
-[![deno.land](https://img.shields.io/badge/deno.land-0.3.0-blue)](https://deno.land/x/deno_structured_logging@0.3.0)
+[![deno.land](https://img.shields.io/badge/deno.land-0.4.0-blue)](https://deno.land/x/deno_structured_logging@0.4.0)
 
 A better logger for deno, with support for structured logging.
 
