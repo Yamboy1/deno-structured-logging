@@ -1,12 +1,19 @@
 // Copyright 2020 Yamboy1. All rights reserved. MIT license.
 
-import { consoleSink, fileSink } from "../sinks/mod.ts"
-import { createLogger, LogLevel } from "../mod.ts";
+import {
+  createLogger,
+  LogLevel,
+  consoleSink,
+  fileSink,
+  jsonFormat,
+} from "../mod.ts";
 
 const logger = createLogger({
   minimumLevel: LogLevel.INFO,
-  sinks: [consoleSink(), fileSink("test.log")],
-});
+  outputFormat: jsonFormat, // A custom output format
+})
+  .addSink(consoleSink())
+  .addSink(fileSink("file.log"));
 
 logger.debug("Debug"); // Ignored due to the minimumLevel
 logger.info("This is {type} logging in {program}", "Structured", "Deno");
