@@ -21,6 +21,6 @@ export interface LogEntry {
   message: string;
   /** The parsed log formatted according to outputFormat */
   formattedMessage: string;
-  /** A map of raw variables from the string */
-  variables: Map<string, unknown>;
+  /** An object of raw variables from the string */
+  variables: any;
 }
