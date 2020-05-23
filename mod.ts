@@ -39,6 +39,7 @@ interface Sink {
   outputFormat: string;
 }
 
+/** THe main logger class */
 export interface Logger {
   /** Add a sink */
   addSink(sinkFunc: SinkFunction, outputFormat?: string): this;
