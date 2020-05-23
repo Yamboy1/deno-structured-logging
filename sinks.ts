@@ -9,16 +9,45 @@ import {
 } from "https://deno.land/std@0.51.0/fmt/colors.ts";
 import { LogEntry, LogLevel, SinkFunction } from "./types.ts";
 
+type ColorFunction = (str: string) => string;
+
+interface ConsoleOptions {
+  enableColors: boolean;
+  colorOptions: Partial<ColorOptions>;
+}
+
+interface ColorOptions {
+  debug: ColorFunction;
+  info: ColorFunction;
+  warn: ColorFunction;
+  error: ColorFunction;
+  critical: ColorFunction;
+}
+
 /** A console sink (with colors) */
-export function consoleSink(): SinkFunction {
+export function consoleSink({
+  enableColors = true,
+  colorOptions: {
+    debug = gray,
+    info = blue,
+    warn = yellow,
+    error = red,
+    critical = (str: string) => str
+  } = {}
+}: Partial<ConsoleOptions> = {}): SinkFunction {
   return ({ level, formattedMessage }: LogEntry) => {
-    const color = ({
-      [LogLevel.DEBUG]: gray,
-      [LogLevel.INFO]: blue,
-      [LogLevel.WARN]: yellow,
-      [LogLevel.ERROR]: red,
-      [LogLevel.CRITICAL]: (str: string) => bold(red(str)),
-    })[level] ?? ((x) => x);
+    let color;
+    if (enableColors) {
+      color = ({
+        [LogLevel.DEBUG]: debug,
+        [LogLevel.INFO]: info,
+        [LogLevel.WARN]: warn,
+        [LogLevel.ERROR]: error,
+        [LogLevel.CRITICAL]: critical,
+      })[level] ?? ((x: string) => x);
+  } else {
+    color = (x: string) => x;
+  }
 
     console.log(color(formattedMessage));
   };

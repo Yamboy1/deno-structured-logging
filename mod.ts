@@ -2,7 +2,7 @@
 
 export { consoleSink, fileSink } from "./sinks.ts";
 
-import { LogEntry, LogLevel, Sink, SinkFunction } from "./types.ts";
+import { LogEntry, LogLevel, SinkFunction } from "./types.ts";
 export { LogLevel };
 
 export interface LoggerOptions {
@@ -33,6 +33,11 @@ export function createLogger(
 }
 
 type LogFunction = (format: string, ...args: unknown[]) => void;
+
+interface Sink {
+  sinkFunc: SinkFunction;
+  outputFormat: string;
+}
 
 export interface Logger {
   /** Add a sink */

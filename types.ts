@@ -2,10 +2,6 @@
 
 export type SinkFunction = (logEntry: LogEntry) => void;
 
-export interface Sink {
-  sinkFunc: SinkFunction;
-  outputFormat: string;
-}
 
 /** Logging levels */
 export enum LogLevel {
