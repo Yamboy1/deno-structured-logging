@@ -31,7 +31,7 @@ import {
   fileSink,
   jsonFormat,
   textFormat,
-} from "https://deno.lan/x/deno_structured_logging@0.4.0/mod.ts";
+} from "https://deno.land/x/deno_structured_logging@0.4.0/mod.ts";
 
 const logger = createLogger({
   minimumLevel: LogLevel.INFO,
