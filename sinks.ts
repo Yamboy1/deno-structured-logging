@@ -7,10 +7,10 @@ import {
   bold,
   blue,
 } from "https://deno.land/std@0.51.0/fmt/colors.ts";
-import { LogEntry, LogLevel, Sink } from "./types.ts";
+import { LogEntry, LogLevel, SinkFunction } from "./types.ts";
 
 /** A console sink (with colors) */
-export function consoleSink(): Sink {
+export function consoleSink(): SinkFunction {
   return ({ level, formattedMessage }: LogEntry) => {
     const color = ({
       [LogLevel.DEBUG]: gray,
@@ -25,13 +25,11 @@ export function consoleSink(): Sink {
 }
 
 /** A basic sink to write to a file */
-export function fileSink(filename: string): Sink {
+export function fileSink(filename: string): SinkFunction {
   const file = Deno.openSync(filename, { create: true, append: true });
   const encoder = new TextEncoder();
 
-  addEventListener("unload", () => {
-    file.close();
-  });
+  addEventListener("unload", () => file.close());
 
   return ({ formattedMessage }: LogEntry) => {
     file.writeSync(encoder.encode(formattedMessage + "\n"));

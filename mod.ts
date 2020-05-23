@@ -2,7 +2,7 @@
 
 export { consoleSink, fileSink } from "./sinks.ts";
 
-import { LogEntry, LogLevel, Sink } from "./types.ts";
+import { LogEntry, LogLevel, Sink, SinkFunction } from "./types.ts";
 export { LogLevel };
 
 export interface LoggerOptions {
@@ -17,7 +17,7 @@ export const textFormat = "[{timestamp} {level}] {message}";
 
 /** A json output format */
 export const jsonFormat =
-  '{"message":"{message}","level":"{level}","timestamp":"{timestamp}","data":{params}}'
+  '{"message":"{message}","level":"{level}","timestamp":"{timestamp}","data":{params}}';
 
 /** Create a new Logger */
 export function createLogger(
@@ -36,7 +36,7 @@ type LogFunction = (format: string, ...args: unknown[]) => void;
 
 export interface Logger {
   /** Add a sink */
-  addSink(sink: Sink): this;
+  addSink(sinkFunc: SinkFunction, outputFormat?: string): this;
 
   debug: LogFunction;
   info: LogFunction;
@@ -45,7 +45,7 @@ export interface Logger {
   critical: LogFunction;
 }
 
-class LoggerImpl {
+class LoggerImpl implements Logger {
   private readonly minimumLevel: LogLevel;
   private readonly outputFormat: string;
   private sinks: Sink[] = [];
@@ -55,8 +55,14 @@ class LoggerImpl {
     this.outputFormat = outputFormat;
   }
 
-  addSink(sink: Sink): this {
-    this.sinks.push(sink);
+  addSink(
+    sinkFunc: SinkFunction,
+    outputFormat: string = this.outputFormat,
+  ): this {
+    this.sinks.push({
+      sinkFunc,
+      outputFormat,
+    });
     return this;
   }
 
@@ -72,16 +78,21 @@ class LoggerImpl {
       return;
     }
 
-    const parsed = this.parseLogEntry(level, format, ...args);
-
     for (let sink of this.sinks) {
-      sink(parsed);
+      const parsed = this.parseLogEntry(
+        level,
+        format,
+        sink.outputFormat,
+        ...args,
+      );
+      sink.sinkFunc(parsed);
     }
   }
 
   private parseLogEntry(
     level: LogLevel,
     format: string,
+    outputFormat: string,
     ...args: unknown[]
   ): LogEntry {
     const variables: any = {};
@@ -93,7 +104,7 @@ class LoggerImpl {
       return `${arg}` || "";
     });
 
-    const formattedMessage: string = this.outputFormat.replace(
+    const formattedMessage: string = outputFormat.replace(
       /\{([^{]*?)\}/g,
       (_, p1: string) => {
         if (p1 === "timestamp") return new Date().toISOString();

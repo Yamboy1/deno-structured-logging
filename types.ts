@@ -1,6 +1,11 @@
 /** A sink is like an output, sometimes known as a handler */
 
-export type Sink = (logEntry: LogEntry) => void;
+export type SinkFunction = (logEntry: LogEntry) => void;
+
+export interface Sink {
+  sinkFunc: SinkFunction;
+  outputFormat: string;
+}
 
 /** Logging levels */
 export enum LogLevel {

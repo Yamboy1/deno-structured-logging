@@ -6,14 +6,15 @@ import {
   consoleSink,
   fileSink,
   jsonFormat,
+  textFormat,
 } from "../mod.ts";
 
 const logger = createLogger({
   minimumLevel: LogLevel.INFO,
-  outputFormat: jsonFormat, // A custom output format
+  outputFormat: textFormat, // A custom output format
 })
   .addSink(consoleSink())
-  .addSink(fileSink("file.log"));
+  .addSink(fileSink("file.ndjson"), jsonFormat); // You can set a custom format per sink
 
 logger.debug("Debug"); // Ignored due to the minimumLevel
 logger.info("This is {type} logging in {program}", "Structured", "Deno");
