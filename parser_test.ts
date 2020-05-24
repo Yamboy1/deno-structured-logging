@@ -47,6 +47,6 @@ Deno.test("parseLogEntry format", () => {
     formattedMessage: "bar foo",
     level: LogLevel.INFO,
     message: "bar foo",
-    variables: {"bar": "foo", "foo": "bar"}
+    variables: { "bar": "foo", "foo": "bar" },
   });
 });

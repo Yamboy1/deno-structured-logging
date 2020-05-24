@@ -22,7 +22,8 @@ export function parseLogEntry(
       if (p1 === "message") return message;
       if (p1 === "params") return JSON.stringify(variables);
       return `{${p1}}`;
-    });
+    },
+  );
 
   return {
     level,

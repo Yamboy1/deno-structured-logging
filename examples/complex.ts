@@ -15,7 +15,7 @@ const logger = createLogger({
   outputFormat: textFormat, // You can customise the default output format
 })
   .addSink(consoleSink({
-    colorOptions: { info: green } // You can customise the log level colors
+    colorOptions: { info: green }, // You can customise the log level colors
   }))
   .addSink(fileSink("log.ndjson"), jsonFormat); // You can set a custom format per sink
 

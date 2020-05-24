@@ -32,13 +32,13 @@ export interface ColorOptions {
 /** A console sink (with colors) */
 export function consoleSink({
   enableColors = true,
-  colorOptions: {
+colorOptions: {
     debug = gray,
     info = blue,
     warn = yellow,
     error = red,
     critical = (str: string) => bold(red(str))
-  } = {}
+  } = {},
 }: Partial<ConsoleOptions> = {}): SinkFunction {
   return ({ level, formattedMessage }: LogEntry) => {
     let color;
@@ -50,9 +50,9 @@ export function consoleSink({
         [LogLevel.ERROR]: error,
         [LogLevel.CRITICAL]: critical,
       })[level] ?? ((x: string) => x);
-  } else {
-    color = (x: string) => x;
-  }
+    } else {
+      color = (x: string) => x;
+    }
 
     console.log(color(formattedMessage));
   };
