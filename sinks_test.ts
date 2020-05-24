@@ -1,7 +1,7 @@
 import { assertEquals } from "https://deno.land/std@0.51.0/testing/asserts.ts";
 import { blue, gray, yellow, red, bold } from "https://deno.land/std@0.51.0/fmt/colors.ts";
 import { Spy, spy } from "https://deno.land/x/mock@v0.3.0/spy.ts";
-import { consoleSink } from "./sinks.ts";
+import { consoleSink, fileSink } from "./sinks.ts";
 import { LogLevel } from "./types.ts";
 
 Deno.test("consoleSink colors", () => {
@@ -104,4 +104,19 @@ Deno.test("consoleSink custom colors", () => {
     blue("foo"),
     yellow("foo"),
   ]);
+});
+
+Deno.test("fileSink", () => {
+  const sink = fileSink("./test.log");
+  sink({
+        format: "foo",
+        formattedMessage: "foo",
+        level: LogLevel.INFO,
+        message: "foo",
+        variables: {},
+  });
+
+  const data = Deno.readTextFileSync("./test.log");
+  Deno.removeSync("./test.log");
+  assertEquals(data, "foo\n");
 });

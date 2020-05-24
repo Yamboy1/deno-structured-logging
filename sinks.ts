@@ -60,12 +60,13 @@ colorOptions: {
 
 /** A basic sink to write to a file */
 export function fileSink(filename: string): SinkFunction {
-  const file = Deno.openSync(filename, { create: true, append: true });
   const encoder = new TextEncoder();
 
-  addEventListener("unload", () => file.close());
-
   return ({ formattedMessage }: LogEntry) => {
-    file.writeSync(encoder.encode(formattedMessage + "\n"));
+    Deno.writeFileSync(
+      filename,
+      encoder.encode(formattedMessage + "\n"),
+      { create: true, append: true },
+    );
   };
 }
