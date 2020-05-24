@@ -1,17 +1,14 @@
-import { assert, assertEquals } from "https://deno.land/std@0.51.0/testing/asserts.ts";
+import {
+  assert,
+  assertEquals,
+} from "https://deno.land/std@0.51.0/testing/asserts.ts";
 import { Spy, spy } from "https://deno.land/x/mock@v0.3.0/spy.ts";
 
 import { createLogger } from "./mod.ts";
 import { SinkFunction, LogEntry, LogLevel } from "./types.ts";
 
-function testingSink(arr: LogEntry[]): SinkFunction {
-  return (entry: LogEntry) => {
-    arr.push(entry);
-  }
-}
-
 Deno.test("addSink", () => {
-  const logger = createLogger({ outputFormat: "[{level}] {message}"});
+  const logger = createLogger({ outputFormat: "[{level}] {message}" });
   const sink: Spy<void> = spy();
 
   logger.addSink(sink);
@@ -25,15 +22,15 @@ Deno.test("addSink", () => {
         format: "foo",
         message: "foo",
         formattedMessage: "[INFO] foo",
-        variables: {}
+        variables: {},
       }],
-      self: { sinkFunc: sink, outputFormat: "[{level}] {message}"}
-    }
+      self: { sinkFunc: sink, outputFormat: "[{level}] {message}" },
+    },
   ]);
 });
 
 Deno.test("addSink with overriding format", () => {
-  const logger = createLogger({ outputFormat: "[{level}] {message}"});
+  const logger = createLogger({ outputFormat: "[{level}] {message}" });
   const sink: Spy<void> = spy();
 
   logger.addSink(sink);
@@ -48,9 +45,9 @@ Deno.test("addSink with overriding format", () => {
         format: "foo",
         message: "foo",
         formattedMessage: "[INFO] foo",
-        variables: {}
+        variables: {},
       }],
-      self: { sinkFunc: sink, outputFormat: "[{level}] {message}"}
+      self: { sinkFunc: sink, outputFormat: "[{level}] {message}" },
     },
     {
       args: [{
@@ -58,15 +55,17 @@ Deno.test("addSink with overriding format", () => {
         format: "foo",
         message: "foo",
         formattedMessage: "foo [INFO]",
-        variables: {}
+        variables: {},
       }],
-      self: { sinkFunc: sink, outputFormat: "{message} [{level}]"}
-    }
+      self: { sinkFunc: sink, outputFormat: "{message} [{level}]" },
+    },
   ]);
 });
 
 Deno.test("minimumLevel", () => {
-  const logger = createLogger({ minimumLevel: LogLevel.INFO, outputFormat: "[{level}] {message}"});
+  const logger = createLogger(
+    { minimumLevel: LogLevel.INFO, outputFormat: "[{level}] {message}" },
+  );
   const sink: Spy<void> = spy();
 
   logger.addSink(sink);
@@ -81,9 +80,9 @@ Deno.test("minimumLevel", () => {
         format: "foo",
         message: "foo",
         formattedMessage: "[INFO] foo",
-        variables: {}
+        variables: {},
       }],
-      self: { sinkFunc: sink, outputFormat: "[{level}] {message}"}
-    }
+      self: { sinkFunc: sink, outputFormat: "[{level}] {message}" },
+    },
   ]);
-})
+});
