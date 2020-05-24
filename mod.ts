@@ -4,6 +4,7 @@ export * from "./sinks.ts";
 export * from "./types.ts";
 
 import { LogEntry, LogLevel, SinkFunction } from "./types.ts";
+import { parseLogEntry } from "./parser.ts";
 
 export interface LoggerOptions {
   /** Minimum log level, any logs under this level will be ignored. Defaults to LogLevel.INFO */
@@ -85,7 +86,7 @@ class LoggerImpl implements Logger {
     }
 
     for (let sink of this.sinks) {
-      const parsed = this.parseLogEntry(
+      const parsed = parseLogEntry(
         level,
         format,
         sink.outputFormat,
@@ -93,41 +94,6 @@ class LoggerImpl implements Logger {
       );
       sink.sinkFunc(parsed);
     }
-  }
-
-  private parseLogEntry(
-    level: LogLevel,
-    format: string,
-    outputFormat: string,
-    ...args: unknown[]
-  ): LogEntry {
-    const variables: any = {};
-
-    // This is the message before running it through outputFormat
-    const message = format.replace(/\{([^{]*?)\}/g, (_, p1: string) => {
-      const arg = args.shift();
-      variables[p1] = arg;
-      return `${arg}` || "";
-    });
-
-    const formattedMessage: string = outputFormat.replace(
-      /\{([^{]*?)\}/g,
-      (_, p1: string) => {
-        if (p1 === "timestamp") return new Date().toISOString();
-        if (p1 === "level") return LogLevel[level];
-        if (p1 === "message") return message;
-        if (p1 === "params") return JSON.stringify(variables);
-        return `{${p1}}`;
-      },
-    );
-
-    return {
-      level,
-      format,
-      message,
-      formattedMessage,
-      variables,
-    };
   }
 
   debug(format: string, ...args: unknown[]): void {
