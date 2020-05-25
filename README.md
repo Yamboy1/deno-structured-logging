@@ -5,6 +5,14 @@
 
 A better logger for deno, with support for structured logging.
 
+## Planned features for v1
+- [ ] Better / more complete documentation
+- [ ] Async support in sinks
+- [ ] Proper serialisation of objects
+- [ ] Customisable timestamp formats
+- [ ] Filtering logs per sink (probably not for v1)
+- [ ] More built-in sinks
+
 ## Simple Example
 ```ts
 import { createLogger, consoleSink } from "https://deno.land/x/deno_structured_logging@0.4.1/mod.ts";
