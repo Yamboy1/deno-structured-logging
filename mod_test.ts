@@ -106,7 +106,7 @@ Deno.test("textFormat", () => {
   //
   // Date is now restored
   //
-  globalThis.Date = NativeDate
+  globalThis.Date = NativeDate;
 
   assertEquals(sink.calls, [
     {
@@ -141,7 +141,7 @@ Deno.test("jsonFormat", () => {
   //
   // Date is now restored
   //
-  globalThis.Date = NativeDate
+  globalThis.Date = NativeDate;
 
   assertEquals(sink.calls, [
     {
@@ -149,8 +149,9 @@ Deno.test("jsonFormat", () => {
         level: LogLevel.INFO,
         format: "{foo}",
         message: "bar",
-        formattedMessage: '{"message":"bar","level":"INFO","timestamp":"0000-00-00T-00:00:00.0000Z","data":{"foo":"bar"}}',
-        variables: {"foo": "bar"},
+        formattedMessage:
+          '{"message":"bar","level":"INFO","timestamp":"0000-00-00T-00:00:00.0000Z","data":{"foo":"bar"}}',
+        variables: { "foo": "bar" },
       }],
       self: { sinkFunc: sink, outputFormat: jsonFormat },
     },

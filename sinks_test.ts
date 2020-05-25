@@ -1,5 +1,11 @@
+import {
+  blue,
+  gray,
+  yellow,
+  red,
+  bold,
+} from "https://deno.land/std@0.51.0/fmt/colors.ts";
 import { assertEquals } from "https://deno.land/std@0.51.0/testing/asserts.ts";
-import { blue, gray, yellow, red, bold } from "https://deno.land/std@0.51.0/fmt/colors.ts";
 import { Spy, spy } from "https://deno.land/x/mock@v0.3.0/spy.ts";
 import { consoleSink, fileSink } from "./sinks.ts";
 import { LogLevel } from "./types.ts";
@@ -34,7 +40,7 @@ Deno.test("consoleSink colors", () => {
     blue("foo"),
     yellow("foo"),
     red("foo"),
-    bold(red("foo"))
+    bold(red("foo")),
   ]);
 });
 
@@ -73,13 +79,16 @@ Deno.test("consoleSink custom colors", () => {
   //
   // console.log is now mocked
   //
-  const sink = consoleSink({ colorOptions: {
-    debug: red,
-    info: gray,
-    warn: (x: string) => bold(red(x)),
-    error: blue,
-    critical: yellow
-  } });
+  const sink = consoleSink({
+    colorOptions: {
+      debug: red,
+      info: gray,
+      warn: (x: string) => bold(red(x)),
+      error: blue,
+      critical: yellow,
+    },
+  });
+
   for (const level in LogLevel) {
     let num;
     if (num = Number(level)) {
@@ -109,11 +118,11 @@ Deno.test("consoleSink custom colors", () => {
 Deno.test("fileSink", () => {
   const sink = fileSink("./test.log");
   sink({
-        format: "foo",
-        formattedMessage: "foo",
-        level: LogLevel.INFO,
-        message: "foo",
-        variables: {},
+    format: "foo",
+    formattedMessage: "foo",
+    level: LogLevel.INFO,
+    message: "foo",
+    variables: {},
   });
 
   const data = Deno.readTextFileSync("./test.log");
