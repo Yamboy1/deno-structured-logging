@@ -7,6 +7,7 @@ A better logger for deno, with support for structured logging.
 
 ## Planned features for v1
 - [ ] Better / more complete documentation
+- [ ] Allow environment variables to control loglevels
 - [ ] Async support in sinks
 - [ ] Proper serialisation of objects
 - [ ] Customisable timestamp formats
