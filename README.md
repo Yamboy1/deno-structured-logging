@@ -1,4 +1,4 @@
-# Deno Structured Logging (currently unstable)
+# Deno Structured Logging
 
 [![deno doc](https://doc.deno.land/badge.svg)](https://doc.deno.land/https/raw.githubusercontent.com/Yamboy1/deno-structured-logging/master/mod.ts)
 [![deno.land](https://img.shields.io/badge/deno.land-0.4.1-blue)](https://deno.land/x/deno_structured_logging@0.4.1)
@@ -6,13 +6,13 @@
 A better logger for deno, with support for structured logging.
 
 ## Planned features for v1
-- [ ] Better / more complete documentation
-- [ ] Allow environment variables to control loglevels
-- [ ] Async support in sinks
-- [ ] Proper serialisation of objects
-- [ ] Customisable timestamp formats
-- [ ] Filtering logs per sink (probably not for v1)
-- [ ] More built-in sinks
+- [ ] Allow environment variables to control loglevels [#1][i1]
+- [ ] Customisable timestamp formats [#2][i2]
+- [ ] Proper serialisation of objects [#3][i3]
+- [ ] Async support in sinks [#4][i4]
+- [ ] More built-in sinks [#5][i5]
+- [ ] Better / more complete documentation [#6][i6]
+- [ ] Filtering logs per sink [#7][i7]
 
 ## Simple Example
 ```ts
@@ -77,3 +77,11 @@ Available sinks:
 - Console Sink (with colors)
 - File Sink
 - More coming soon
+
+[i1]: https://github.com/Yamboy1/deno-structured-logging/issues/1
+[i2]: https://github.com/Yamboy1/deno-structured-logging/issues/2
+[i3]: https://github.com/Yamboy1/deno-structured-logging/issues/3
+[i4]: https://github.com/Yamboy1/deno-structured-logging/issues/4
+[i5]: https://github.com/Yamboy1/deno-structured-logging/issues/5
+[i6]: https://github.com/Yamboy1/deno-structured-logging/issues/6
+[i7]: https://github.com/Yamboy1/deno-structured-logging/issues/7
